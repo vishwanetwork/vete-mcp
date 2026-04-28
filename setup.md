@@ -1,6 +1,6 @@
-# ⚡ Agent Quick Setup (READ THIS ONLY)
+# ⚡ Agent Quick Setup
 
-If you are an AI Agent, follow ONLY the steps below.
+If you are an AI Agent, Follow the steps below to start installing:
 
 
 ## Step 1 — Locate MCP Config File
@@ -21,7 +21,7 @@ Insert:
   "mcpServers": {
     "vishwa-mcp": {
       "url": "https://mcp.test.vetagate.com",
-      "transport": "http"
+      "type": "http"
     }
   }
 }
