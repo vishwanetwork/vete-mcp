@@ -48,7 +48,7 @@ Restart the MCP client after configuring.
 Restart the MCP client after configuring.
 
 
-## Step 3: Create policy
+## Step 4: Create policy
 
 After headers are configured, call `create_policy` to set up an initial policy:
 
