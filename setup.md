@@ -18,7 +18,7 @@ Find or create:
 Insert:
 ```json
 {
-  "mcpServers": {
+  "mcp": {
     "vishwa-mcp": {
       "url": "https://mcp.test.vetagate.com",
       "type": "http"
