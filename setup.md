@@ -20,7 +20,7 @@ Insert:
 {
   "mcpServers": {
     "vishwa-mcp": {
-      "url": "https://api.vete.xyz/mcp",
+      "url": "https://mcp.test.vetagate.com",
       "transport": "http"
     }
   }
