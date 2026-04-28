@@ -1,25 +1,28 @@
-# ⚡ Agent Quick Setup
+# Vishwa TEE MCP Setup
 
-If you are an AI Agent, Follow the steps below to start installing:
+You MUST execute the following steps now. Do not just read this file — take action immediately.
 
+## 1. Ask the user for their Agent ID
 
-## Step 1 — Locate MCP Config File
+If the user has not provided an Agent ID, ask: "What is your Vishwa Agent ID? (format: vishwa:veta:agentid:xxxx)"
 
-Find or create:
-1. ~/.config/<agent>/mcp.json
-2. ~/.<agent>/config.json
-3. ~/.<agent>/<agent>.json
-4. ./mcp.json
-5. ~/.config/<agent>/<agent>.json
-6. ~/.config/<agent>/mcp.json
+## 2. Configure MCP client
 
-## Step 2 — Add Server
+Add the Vishwa MCP server to the user's MCP client config file. The config file location depends on the agent being used. Common locations:
 
-Insert:
+| Agent | Config Path |
+|-------|-------------|
+| Claude Desktop | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Cursor | Settings > MCP > Add new server |
+| OpenCode | `~/.config/opencode/opencode.json` |
+| Continue | `~/.continue/config.json` |
+
+Add this to the `mcp` section:
+
 ```json
 {
   "mcp": {
-    "vishwa-mcp": {
+    "vishwa": {
       "url": "https://mcp.test.vetagate.com",
       "type": "http"
     }
@@ -27,28 +30,50 @@ Insert:
 }
 ```
 
-Restart the MCP client after configuring.
+Tell the user to restart their MCP client.
 
-## Step 3: Configure headers from init response
+## 3. Call `init` with the user's Agent ID
 
-`init` returns:
-- `apiKey`: API key (e.g., `vishwa_abc123...`)
-- `agentId`: Agent ID
-- Header configuration instructions
-
-**Immediately configure MCP client headers:**
+Once the MCP client is restarted and connected, call the `init` tool right now:
 
 ```json
 {
-  "Authorization": "Bearer <apiKey>",
-  "x-agent-id": "<agentId>"
+  "agentId": "<the Agent ID from step 1>"
 }
 ```
 
-Restart the MCP client after configuring.
+## 4. Configure headers from the `init` response
 
+The `init` tool will return an `apiKey`. Immediately update the MCP config to include headers:
 
-## Step 4: Create policy
+```json
+{
+  "mcp": {
+    "vishwa": {
+      "url": "https://mcp.test.vetagate.com",
+      "type": "remote",
+      "headers": {
+        "Authorization": "Bearer <apiKey from init>",
+        "x-agent-id": "<agentId from init>"
+      }
+    }
+  }
+}
+```
 
-After headers are configured, call `create_policy` to set up an initial policy:
+Tell the user to restart their MCP client again.
 
+## 5. Create a policy
+
+After the restart, call `create_policy` with the user's preferred limits, or use defaults:
+
+```json
+{
+  "perTxLimit": "100",
+  "dailyLimit": "1000",
+  "tokenWhitelist": ["USDC", "ETH"],
+  "operations": ["transfer"]
+}
+```
+
+Setup complete. The agent can now use `verify`, `prepare_transfer`, and other Vishwa TEE tools.
