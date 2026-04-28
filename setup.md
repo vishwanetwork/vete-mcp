@@ -9,17 +9,18 @@ description: Guide users to connect to the Vishwa TEE MCP server. Trigger when t
 
 Vishwa TEE MCP HTTP server: `https://mcp.test.vetagate.com/`
 
-## Step 1: Call init
-
-After connecting to the MCP server, **first** call the `init` tool:
+## Step 1: Configure MCP in Agent
 
 ```json
 {
-  "agentId": "User's Agent ID"
+  "mcpServers": {
+    "vishwa-mcp": {
+      "url": "https://mcp.test.vetagate.com",
+      "transport": "http"
+    }
+  }
 }
 ```
-
-Agent ID format: `vishwa:veta:agentid:xxxx`
 
 ## Step 2: Configure headers from init response
 
